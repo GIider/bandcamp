@@ -12,6 +12,7 @@ import copy
 
 import bandcamp
 
+
 class BandcampTestCase(unittest.TestCase):
     def setUp(self):
         self.__loader = bandcamp._load_json_from_url
@@ -27,7 +28,7 @@ class BandcampTestCase(unittest.TestCase):
         if 'source_url' in obj_dict:
             obj_dict.pop('source_url')
 
-        for attribute, value in obj_dict.iteritems():
+        for attribute, value in obj_dict.items():
             self.assertIn(attribute, compare_obj)
 
             # Ugly hack so it doesn't complain about our string identifiers
@@ -51,7 +52,7 @@ class TestBand(BandcampTestCase):
                                                 json.loads(self.BAND_JSON)
 
         band = bandcamp.Band(self.BAND_ID)
-        self.assertIsInstance(band.band_id, basestring)
+        self.assertIsInstance(band.band_id, str)
 
     def testBandProperties(self):
         '''Test that a band has the correct properties'''
@@ -154,9 +155,9 @@ class TestTrack(BandcampTestCase):
 
         track = bandcamp.Track(self.TRACK_ID)
 
-        self.assertIsInstance(track.album_id, basestring)
-        self.assertIsInstance(track.band_id, basestring)
-        self.assertIsInstance(track.track_id, basestring)
+        self.assertIsInstance(track.album_id, str)
+        self.assertIsInstance(track.band_id, str)
+        self.assertIsInstance(track.track_id, str)
 
     def testInvalidTrackId(self):
         '''Test that a invalid track_id raises a ValueError'''
@@ -239,8 +240,8 @@ class TestUrl(BandcampTestCase):
                                                 json.loads(self.ALBUM_JSON)
 
         url = bandcamp.Url(self.ALBUM_URL)
-        for value in url.__dict__.values():
-            self.assertIsInstance(value, basestring)
+        for value in list(url.__dict__.values()):
+            self.assertIsInstance(value, str)
 
     def testUrlStringKeysTrack(self):
         '''Verify that the keys in a resolved track are strings'''
@@ -249,8 +250,8 @@ class TestUrl(BandcampTestCase):
                                                 json.loads(self.TRACK_JSON)
 
         url = bandcamp.Url(self.TRACK_URL)
-        for value in url.__dict__.values():
-            self.assertIsInstance(value, basestring)
+        for value in list(url.__dict__.values()):
+            self.assertIsInstance(value, str)
 
     def testUrlResolveAlbum(self):
         '''Verify that the url to a album can be resolved correctly'''
@@ -289,8 +290,8 @@ class TestAlbum(BandcampTestCase):
 
         album = bandcamp.Album(self.ALBUM_ID)
 
-        self.assertIsInstance(album.album_id, basestring)
-        self.assertIsInstance(album.band_id, basestring)
+        self.assertIsInstance(album.album_id, str)
+        self.assertIsInstance(album.band_id, str)
 
     def testAlbumProperties(self):
         '''Test that a album has the correct properties'''
@@ -348,8 +349,8 @@ class TestIncompleteAlbum(BandcampTestCase):
 
         album = albums[0]
 
-        self.assertIsInstance(album.album_id, basestring)
-        self.assertIsInstance(album.band_id, basestring)
+        self.assertIsInstance(album.album_id, str)
+        self.assertIsInstance(album.band_id, str)
 
     def testIncompleteAlbumProperties(self):
         '''Test that a incomplete album has the correct properties'''
@@ -449,7 +450,7 @@ class TestUnicodeAlbum(BandcampTestCase):
 
         album_obj = bandcamp.Album(self.ALBUM_ID)
 
-        self.assertIsInstance(album_obj.title, unicode)
+        self.assertIsInstance(album_obj.title, str)
         album_obj.title.encode('utf-8')
 
 
@@ -462,7 +463,7 @@ class TestUnicodeBand(BandcampTestCase):
             self.skipTest('TODO: Make local json backup')
 
         band_obj = bandcamp.Band(self.BAND_ID)
-        self.assertIsInstance(band_obj.name, unicode)
+        self.assertIsInstance(band_obj.name, str)
         band_obj.name.encode('utf-8')
 
 if __name__ == "__main__":

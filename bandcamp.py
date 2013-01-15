@@ -27,7 +27,7 @@ Example code:
 '''
 
 import os
-import urllib
+import urllib.request
 import json
 import time
 import collections
@@ -58,7 +58,6 @@ def cleanup_cache_folder(purge=False):
     Parameters:
         purge    When set to True everything is deleted
     '''
-
     if purge:
         shutil.rmtree(TEMP_FOLDER)
         os.makedirs(TEMP_FOLDER)
@@ -84,25 +83,28 @@ def _load_json_from_url(url, force_request):
         url              The url to load and read from
         force_request    If True, caching is ignored
     '''
-    hashed_fname = hashlib.md5(url).hexdigest()
+    hashed_fname = hashlib.md5(url.encode('utf-8')).hexdigest()
     cache_filepath = os.path.join(TEMP_FOLDER, hashed_fname)
 
     if not force_request and os.path.isfile(cache_filepath):
-        with open(cache_filepath) as cache_file:
+        with open(cache_filepath, 'rb') as cache_file:
             content = cache_file.read()
 
     else:
         if API_KEY is None:
             raise ValueError('You need to set the API_KEY variable!')
 
-        f = urllib.urlopen(url)
+        f = urllib.request.urlopen(url)
         assert f.code == 200
 
         content = f.read()
 
-        with open(cache_filepath, 'w') as cache_file:
+        with open(cache_filepath, 'wb') as cache_file:
             cache_file.write(content)
 
+    content = content.decode('utf-8')
+
+    print(content)
     obj = json.loads(content)
 
     if 'error' in obj or 'error_message' in obj:
@@ -159,7 +161,7 @@ class _BandcampBaseObject(object):
     def __unicode__(self):
         name = getattr(self, 'title', None) or getattr(self, 'name')
 
-        return u'%s \'%s\'' % (self.__class__, name)
+        return '%s \'%s\'' % (self.__class__, name)
 
     def __repr__(self):
         name = getattr(self, 'title', None) or getattr(self, 'name')
@@ -186,10 +188,10 @@ class _BandcampBaseObject(object):
         All subclasses should call the base implementation in
         _BandcampBaseObject so that the strings get converted to utf-8.
         '''
-        for key, value in raw_dict.iteritems():
-            if isinstance(value, basestring) and \
-                                            not isinstance(value, unicode):
-                raw_dict[key] = unicode(value, 'utf-8')
+        for key, value in raw_dict.items():
+            if isinstance(value, str) and \
+                                            not isinstance(value, str):
+                raw_dict[key] = str(value, 'utf-8')
 
         return raw_dict
 
@@ -222,13 +224,13 @@ class Url(_BandcampBaseObject):
                r'info?key={api_key}&url={identifier}' % __version__
 
     def __unicode__(self):
-        return u'%s band_id: \'%s\'' % (self.__class__, self.band_id)
+        return '%s band_id: \'%s\'' % (self.__class__, self.band_id)
 
     def __repr__(self):
         return '%s band_id: %s' % (self.__class__, repr(self.band_id))
 
     def _convert_attributes(self, raw_dict):
-        for key, value in raw_dict.iteritems():
+        for key, value in raw_dict.items():
             raw_dict[key] = str(value)
 
         return _BandcampBaseObject._convert_attributes(self, raw_dict)
@@ -332,7 +334,7 @@ class Track(_BandcampBaseObject):
         tracks = _load_json_from_url(url, force_request)
 
         return [cls._generate_from_dictionary(track) for track in
-                                                        tracks.values()]
+                                                        list(tracks.values())]
 
 
 class Band(_BandcampBaseObject):
@@ -368,7 +370,7 @@ class Band(_BandcampBaseObject):
         lambda_func.__doc__ = orig_func.__doc__
         lambda_func.__name__ = orig_func.__name__
 
-        self.discography = types.MethodType(lambda_func, self, self.__class__)
+        self.discography = types.MethodType(lambda_func, self.__class__)
 
     def _convert_attributes(self, raw_dict):
         raw_dict['band_id'] = str(raw_dict['band_id'])
@@ -418,7 +420,7 @@ class Band(_BandcampBaseObject):
             force_request    If True, caching is ignored
         '''
         # Try to find out if we're dealing with a single value and convert
-        if isinstance(band_ids, basestring) or \
+        if isinstance(band_ids, str) or \
                                 not isinstance(band_ids, collections.Iterable):
             band_ids = [band_ids]
 
@@ -448,7 +450,7 @@ class Band(_BandcampBaseObject):
                 tracks = [_IncompleteTrack(result) for result in temp_obj
                                                    if 'track_id' in result]
 
-                return_dict[unicode(band_id)] = {'albums': albums,
+                return_dict[str(band_id)] = {'albums': albums,
                                                  'tracks': tracks}
 
         return return_dict
@@ -463,7 +465,7 @@ class Band(_BandcampBaseObject):
                              allowed is 12
             force_request    If True, caching is ignored
         '''
-        if isinstance(name, basestring):
+        if isinstance(name, str):
             name = [name]
         else:
             name = iter(name)
