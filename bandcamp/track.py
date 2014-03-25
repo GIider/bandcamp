@@ -1,92 +1,141 @@
 # -*- coding: utf-8 -*-
 """The Bandcamp Track module"""
+import enum
+import functools
 
 __version__ = 3
-__all__ = ['Track', 'info']
+__all__ = ['info', 'DownloadableStates']
 
 BASE_URL = 'http://api.bandcamp.com/api/track/%d/info'
 
+class DownloadableStates(enum.IntEnum):
+    FREE = 1
+    PAID = 2
+
+
+def integer(func):
+    @functools.wraps(func)
+    def converter(*args, **kwargs):
+        arg = func(*args, **kwargs)
+        if arg is not None:
+            arg = int(arg)
+
+        return arg
+
+    return converter
 
 def info(api, track_id):
+    """Returns information about one or more tracks."""
     if isinstance(track_id, int):
         track_id = str(track_id)
 
     if not isinstance(track_id, str):
         track_id = ','.join((str(_track_id) for _track_id in track_id))
 
-    print(track_id)
-
     parameters = {'track_id': track_id, 'key': api.api_key}
     url = BASE_URL % __version__
 
     response = api._make_api_request(url=url, parameters=parameters)
-    print(response)
 
     if 'track_id' in response:
-        return Track(track_id=track_id, track_body=response)
+        return Track(track_body=response)
 
-    tracks = []
-    for track_id, track_body in response.items():
-        print(track_id, track_body)
-
-        track = Track(track_id, track_body)
-        tracks.append(track)
-
-    return tracks
+    return [Track(track_body=track_body) for track_body in response.values()]
 
 
 class Track(object):
-    def __init__(self, track_id, track_body=None):
-        self.track_id = track_id
+    def __init__(self, track_body):
         self.track_body = track_body
 
     @property
     def title(self):
-        return self.track_body['title']
+        """The track's title."""
+        return self.track_body.get('title', None)
 
+    @property
+    @integer
+    def number(self):
+        """the track number on the album."""
+        return self.track_body.get('number', None)
 
-'''
-class Track(object):
-    """Wrapper around the Bandcamp Track module"""
+    @property
+    def duration(self):
+        """the track’s duration, in seconds (float)."""
+        return self.track_body.get('duration', None)
 
-    __version__ = 3
+    @property
+    def release_date(self):
+        """the track’s release date if it’s different than the album’s release date.
 
-    def __init__(self, api):
-        self.api = api
+         Expressed as an integer of epoch seconds.
+         """
+        # TODO: Express as datetime or similar?
+        return self.track_body.get('release_date', None)
 
-    def info(self, track_id):
-        """Returns information about one or more tracks.
-
-        Returns a dictionary that can contain any of the following keys:
-
-            title            The track's title.
-            number           The track number on the album.
-            duration         The track's duration, in seconds.
-            release_date     The track's release date if it's different than the
-                             album's release date, as a time.struct_time
-            downloadable     1 if the track is free, 2 if paid.
-            url              The relative URL of the track. Note that this is
-                             relative, as opposed to the album info URL that's
-                             absolute. This is a bug and will be fixed in
-                             future versions.
-            streaming_url    The URL to the track's mp3 - 128 audio.
-            lyrics           The track's lyrics, if any.
-            about            The track's "about" text, if any.
-            credits          The track's credits, if any.
-            small_art_url    URL to the track's art, 100x100, only present if it's
-                             different than the album's cover art.
-            large_art_url    350x350.
-            artist           The track's artist, if different than the album's
-                             artist.
-            track_id         The track's numeric id.
-            album_id         The album's numeric id.
-            band_id          The band's numeric id.
-        """
-        parameters = {'track_id': track_id, 'key': self.api.api_key}
-
-        return self.api._make_api_request(url=self.url, parameters=parameters)
+    @property
+    def downloadable(self):
+        """DownloadableStates.FREE if the track is free, DownloadableStates.PAID if paid."""
+        return self.track_body.get('downloadable', None)
 
     @property
     def url(self):
-        return BASE_URL % self.__version__
-'''
+        """The relative URL of the track.
+
+        Note that this is relative, as opposed to the album info URL that's absolute.
+        This is a bug and will be fixed in future versions
+        """
+        # TODO: Fix this bug myself :-)
+        return self.track_body.get('url', None)
+
+    @property
+    def streaming_url(self):
+        """The URL to the track's mp3 - 128 audio."""
+        return self.track_body.get('streaming_url', None)
+
+    @property
+    def lyrics(self):
+        """The track's lyrics, if any."""
+        return self.track_body.get('lyrics', None)
+
+    @property
+    def about(self):
+        """the track’s “about” text, if any."""
+        return self.track_body.get('about', None)
+
+    @property
+    def credits(self):
+        """the track’s credits, if any."""
+        return self.track_body.get('credits', None)
+
+    @property
+    def small_art_url(self):
+        """URL to the track’s art, 100×100, only present if it’s different than the album’s cover art."""
+        return self.track_body.get('small_art_url', None)
+
+    @property
+    def large_art_url(self):
+        """350×350."""
+        return self.track_body.get('large_art_url', None)
+
+    @property
+    def artist(self):
+        """the track’s artist, if different than the album’s artist."""
+        return self.track_body.get('artist', None)
+
+    @property
+    @integer
+    def track_id(self):
+        """the track’s numeric id."""
+        return self.track_body.get('track_id', None)
+
+    @property
+    @integer
+    def album_id(self):
+        """the album’s numeric id."""
+        return self.track_body.get('album_id', None)
+
+    @property
+    @integer
+    def band_id(self):
+        """the band’s numeric id."""
+        return self.track_body.get('band_id', None)

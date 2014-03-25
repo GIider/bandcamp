@@ -14,10 +14,6 @@ class Api(object):
     def __init__(self, api_key):
         self.api_key = api_key
 
-        self.url = Url(self)
-        self.track = Track(self)
-        self.album = Album(self)
-
     def _make_api_request(self, url, parameters=None):
         if parameters is not None:
             url += '?%s' % urlencode(parameters, safe=',')
