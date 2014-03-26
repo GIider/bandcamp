@@ -54,8 +54,8 @@ class TestTrack(unittest.TestCase):
 
         self.assertEqual(len(tracks), 2)
 
-        self.assertIsInstance(tracks[0], bandcamp.track.Track)
-        self.assertIsInstance(tracks[1], bandcamp.track.Track)
+        self.assertIsInstance(tracks[3257270656], bandcamp.track.Track)
+        self.assertIsInstance(tracks[1269403107], bandcamp.track.Track)
 
     def test_numerical_propertys(self):
         """Verify that the 3 id properties return numerical values"""
@@ -68,7 +68,7 @@ class TestTrack(unittest.TestCase):
         self.assertIsInstance(track.track_id, int)
         self.assertIsInstance(track.album_id, int)
 
-    def test_unknown_property_is_None(self):
+    def test_unknown_property_is_none(self):
         """Verify that a property that was not in the response is None"""
         track_id = 1269403107
 

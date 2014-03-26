@@ -6,7 +6,7 @@ import functools
 __version__ = 3
 __all__ = ['info', 'DownloadableStates']
 
-BASE_URL = 'http://api.bandcamp.com/api/track/%d/info'
+BASE_URL = 'http://api.bandcamp.com/api/track/%d/info' % __version__
 
 
 class DownloadableStates(enum.IntEnum):
@@ -27,7 +27,12 @@ def integer(func):
 
 
 def info(api, track_id):
-    """Returns information about one or more tracks."""
+    """Returns information about one or more tracks.
+
+    This call can be used in batch mode, where you can specify multiple track ids separated by commas.
+    The info for all the tracks is fetched in one call and returned to you in a hash, mapping the track ids
+    to Track instances.
+    """
     if isinstance(track_id, int):
         track_id = str(track_id)
 
@@ -35,14 +40,13 @@ def info(api, track_id):
         track_id = ','.join((str(_track_id) for _track_id in track_id))
 
     parameters = {'track_id': track_id}
-    url = BASE_URL % __version__
 
-    response = api.make_api_request(url=url, parameters=parameters)
+    response = api.make_api_request(url=BASE_URL, parameters=parameters)
 
     if 'track_id' in response:
         return Track(track_body=response)
 
-    return [Track(track_body=track_body) for track_body in response.values()]
+    return {int(track_id): Track(track_body=track_body) for track_id, track_body in response.items()}
 
 
 class Track(object):
