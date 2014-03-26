@@ -11,12 +11,9 @@ BASE_URL = 'http://api.bandcamp.com/api/album/%d/info' % __version__
 
 
 def info(api, album_id):
-    """Returns information about one or more albums."""
+    """Returns information about an album"""
     if isinstance(album_id, int):
         album_id = str(album_id)
-
-    if not isinstance(album_id, str):
-        album_id = ','.join((str(_album_id) for _album_id in album_id))
 
     parameters = {'album_id': album_id}
 

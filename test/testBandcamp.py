@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
+import time
 import json
 import unittest
 import os
@@ -140,7 +141,6 @@ class TestUrl(unittest.TestCase):
         self.assertIsNone(response.album_id)
         self.assertIsNone(response.track_id)
 
-
     def test_band_track_url(self):
         url = 'http://music.sufjan.com/track/enchanting-ghost'
         api = TestApi('test_band_track_url')
@@ -164,6 +164,15 @@ class TestAlbum(unittest.TestCase):
 
         self.assertIsInstance(album, bandcamp.album.Album)
         self.assertEqual(album.album_id, album_id)
+
+    def test_release_date(self):
+        """Verify that the release_date returns a time_struct"""
+        album_id = 2587417518
+
+        api = TestApi('test_album_tpwg')
+        album = bandcamp.album.info(api=api, album_id=album_id)
+
+        self.assertIsInstance(album.release_date, time.struct_time)
 
 
 if __name__ == '__main__':
