@@ -8,5 +8,4 @@ setup(name='bandcamp',
       author_email='mail@marcelcarl.de',
       url='https://github.com/GIider/bandcamp',
       version='2.0a',
-      py_modules=['bandcamp']
-)
+      py_modules=['bandcamp'])
