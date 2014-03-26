@@ -51,9 +51,9 @@ class TestApiObject(unittest.TestCase):
         """Verify that spaces are correctly encoded"""
         api = bandcamp.Api(api_key=None)
 
-        url = '  http://api.bandcamp.com/api/band/3/search'
+        url = 'http://api.bandcamp.com/api/band/3/search'
         parameters = {'name': 'mountain man'}
-        encoded_url = 'http://api.bandcamp.com/api/band/3/search?name=mountain%20man'
+        encoded_url = 'http://api.bandcamp.com/api/band/3/search?name=mountain+man'
 
         self.assertEqual(api.get_encoded_url(url=url, parameters=parameters), encoded_url)
 
