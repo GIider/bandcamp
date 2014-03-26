@@ -10,7 +10,7 @@ import bandcamp
 JSON_DIR = os.path.join(os.path.dirname(__file__), 'json')
 
 
-class RegtestApi(bandcamp.Api):
+class TestApi(bandcamp.Api):
     """Mock Api object that reads from a file instead of the web"""
 
     def __init__(self, response_file_name):
@@ -29,7 +29,7 @@ class TestTrack(unittest.TestCase):
         """Verify that a single track can be fetched with its track id as a number"""
         track_id = 1269403107
 
-        api = RegtestApi('test_single_track')
+        api = TestApi('test_single_track')
         track = bandcamp.track.info(api=api, track_id=track_id)
 
         self.assertIsInstance(track, bandcamp.track.Track)
@@ -39,7 +39,7 @@ class TestTrack(unittest.TestCase):
         """Verify that a single track can be fetched with its track id as a string"""
         track_id = '1269403107'
 
-        api = RegtestApi('test_single_track')
+        api = TestApi('test_single_track')
         track = bandcamp.track.info(api=api, track_id=track_id)
 
         self.assertIsInstance(track, bandcamp.track.Track)
@@ -50,7 +50,7 @@ class TestTrack(unittest.TestCase):
         """Verify that multiple tracks can be fetched"""
         track_ids = [3257270656, 1269403107]
 
-        api = RegtestApi('test_multiple_tracks')
+        api = TestApi('test_multiple_tracks')
         tracks = bandcamp.track.info(api=api, track_id=track_ids)
 
         self.assertEqual(len(tracks), 2)
