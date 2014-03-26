@@ -1,30 +1,13 @@
 # -*- coding: utf-8 -*-
 """The Bandcamp Track module"""
-import enum
 import time
-import functools
+
+from .commons import DownloadableStates, integer
 
 __version__ = 3
-__all__ = ['info', 'DownloadableStates']
+__all__ = ['info']
 
 BASE_URL = 'http://api.bandcamp.com/api/track/%d/info' % __version__
-
-
-class DownloadableStates(enum.IntEnum):
-    FREE = 1
-    PAID = 2
-
-
-def integer(func):
-    @functools.wraps(func)
-    def converter(*args, **kwargs):
-        arg = func(*args, **kwargs)
-        if arg is not None:
-            arg = int(arg)
-
-        return arg
-
-    return converter
 
 
 def info(api, track_id):
