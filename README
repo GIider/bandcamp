@@ -10,15 +10,4 @@ What do we have here?
 =====================
 A lightweight, easy to use wrapper around the official Bandcamp API.
 
-Example usage
--------------
-
-    #!/usr/bin/env python
-
-    import bandcamp
-    
-    bandcamp.API_KEY = 'your-secret-api-key'
-    url_obj = bandcamp.Url('http://lapfox.bandcamp.com/')
-    band_obj = bandcamp.Band(url_obj.band_id)
-    
-    albums, tracks = band_obj.discography()
+It is currently in development, as I majorly overhaul the whole package
