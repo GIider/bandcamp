@@ -26,10 +26,19 @@ class Api(object):
     def __init__(self, api_key):
         self._api_key = api_key
 
-    def make_api_request(self, url, parameters=None):
+    def get_encoded_url(self, url, parameters=None):
+        """Encode a url"""
         if parameters is not None:
-            parameters['key'] = self._api_key
+            if self._api_key is not None:
+                parameters['key'] = self._api_key
+
             url += '?%s' % urlencode(parameters, safe=',')
+
+        return url
+
+    def make_api_request(self, url, parameters=None):
+        """Make a request to the Bandcamp API"""
+        url = self.get_encoded_url(url=url, parameters=parameters)
 
         # TODO: Remove later :-)
         print(url)
