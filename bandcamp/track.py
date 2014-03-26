@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """The Bandcamp Track module"""
 import enum
+import time
 import functools
 
 __version__ = 3
@@ -73,10 +74,13 @@ class Track(object):
     def release_date(self):
         """the track’s release date if it’s different than the album’s release date.
 
-         Expressed as an integer of epoch seconds.
+         Expressed as a time.struct_time instance
          """
-        # TODO: Express as datetime or similar?
-        return self.track_body.get('release_date', None)
+        release_date = self.track_body.get('release_date', None)
+        if release_date is not None:
+            release_date = time.localtime(release_date)
+
+        return release_date
 
     @property
     def downloadable(self):

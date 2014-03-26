@@ -122,6 +122,10 @@ class TestTrack(unittest.TestCase):
 
         self.assertEqual(track.downloadable, bandcamp.track.DownloadableStates.PAID)
 
+    def test_release_date(self):
+        """Verify that the release_date returns a time_struct"""
+        self.skipTest('Not implemented yet')
+
 
 class TestUrl(unittest.TestCase):
     """Test the URL module"""
