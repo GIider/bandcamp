@@ -77,7 +77,11 @@ class Track(object):
     @property
     def downloadable(self):
         """DownloadableStates.FREE if the track is free, DownloadableStates.PAID if paid."""
-        return self.track_body.get('downloadable', None)
+        downloadable = self.track_body.get('downloadable', None)
+        if downloadable is not None:
+            downloadable = DownloadableStates(downloadable)
+
+        return downloadable
 
     @property
     def url(self):
