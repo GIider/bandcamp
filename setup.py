@@ -5,8 +5,8 @@ from distutils.core import setup
 setup(name='bandcamp',
       description='A wrapper around the API of bandcamp.com',
       author='Marcel Carl',
-      author_email='marcel.carl.hagenbach@googlemail.com',
-      url='http://code.google.com/p/py-bandcamp/',
-      version='1.0',
+      author_email='mail@marcelcarl.de',
+      url='https://github.com/GIider/bandcamp',
+      version='1.1',
       py_modules=['bandcamp']
 )

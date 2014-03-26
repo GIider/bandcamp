@@ -44,7 +44,7 @@ class Album(object):
         """
         parameters = {'album_id': album_id, 'key': self.api.api_key}
 
-        return self.api._make_api_request(url=self.url, parameters=parameters)
+        return self.api.make_api_request(url=self.url, parameters=parameters)
 
     @property
     def url(self):

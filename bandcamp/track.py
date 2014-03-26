@@ -8,6 +8,7 @@ __all__ = ['info', 'DownloadableStates']
 
 BASE_URL = 'http://api.bandcamp.com/api/track/%d/info'
 
+
 class DownloadableStates(enum.IntEnum):
     FREE = 1
     PAID = 2
@@ -24,6 +25,7 @@ def integer(func):
 
     return converter
 
+
 def info(api, track_id):
     """Returns information about one or more tracks."""
     if isinstance(track_id, int):
@@ -32,10 +34,10 @@ def info(api, track_id):
     if not isinstance(track_id, str):
         track_id = ','.join((str(_track_id) for _track_id in track_id))
 
-    parameters = {'track_id': track_id, 'key': api.api_key}
+    parameters = {'track_id': track_id}
     url = BASE_URL % __version__
 
-    response = api._make_api_request(url=url, parameters=parameters)
+    response = api.make_api_request(url=url, parameters=parameters)
 
     if 'track_id' in response:
         return Track(track_body=response)

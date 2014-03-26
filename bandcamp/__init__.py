@@ -12,10 +12,11 @@ from .album import *
 
 class Api(object):
     def __init__(self, api_key):
-        self.api_key = api_key
+        self._api_key = api_key
 
-    def _make_api_request(self, url, parameters=None):
+    def make_api_request(self, url, parameters=None):
         if parameters is not None:
+            parameters['key'] = self._api_key
             url += '?%s' % urlencode(parameters, safe=',')
 
         print(url)
