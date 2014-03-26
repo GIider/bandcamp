@@ -11,6 +11,8 @@ JSON_DIR = os.path.join(os.path.dirname(__file__), 'json')
 
 
 class RegtestApi(bandcamp.Api):
+    """Mock Api object that reads from a file instead of the web"""
+
     def __init__(self, response_file_name):
         file_path = os.path.join(JSON_DIR, response_file_name)
         with open(file_path) as f:

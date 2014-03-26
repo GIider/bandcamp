@@ -1,13 +1,21 @@
 # -*- coding: utf-8 -*-
-"""The bandcamp package - A wrapper around the bandcamp API"""
+"""The bandcamp package - A wrapper around the bandcamp API
+
+Example code:
+    >>> import bandcamp
+    >>> api = bandcamp.Api(api_key='your-secret-api-key')
+    >>> track = bandcamp.track.info(api=api, track_id=1269403107)
+    >>> print(track.title)
+    Creep (Live in Prague)
+"""
 import json
 from urllib.parse import urlencode
 from urllib.request import urlopen
 
-from .band import *
-from .url import *
-from .track import *
-from .album import *
+from . import track
+
+
+__all__ = ['Api', 'track']
 
 
 class Api(object):

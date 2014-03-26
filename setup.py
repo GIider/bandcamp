@@ -7,6 +7,6 @@ setup(name='bandcamp',
       author='Marcel Carl',
       author_email='mail@marcelcarl.de',
       url='https://github.com/GIider/bandcamp',
-      version='1.1',
+      version='2.0a',
       py_modules=['bandcamp']
 )
