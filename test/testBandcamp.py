@@ -13,9 +13,9 @@ JSON_DIR = os.path.join(os.path.dirname(__file__), 'json')
 class TestApi(bandcamp.Api):
     """Mock Api object that reads from a file instead of the web"""
 
-    def __init__(self, response_file_name):
+    def __init__(self, response_file_name, encoding='utf-8'):
         file_path = os.path.join(JSON_DIR, response_file_name)
-        with open(file_path) as f:
+        with open(file_path, encoding=encoding) as f:
             self.canned_response = json.load(f)
 
     def make_api_request(self, *args, **kwargs):
@@ -150,6 +150,20 @@ class TestUrl(unittest.TestCase):
         self.assertEqual(response.band_id, 203035041)
         self.assertEqual(response.track_id, 2323108455)
         self.assertIsNone(response.album_id)
+
+
+class TestAlbum(unittest.TestCase):
+    """Test the Album module"""
+
+    def test_single_album(self):
+        """Verify that a single album can be fetched"""
+        album_id = 2587417518
+
+        api = TestApi('test_album')
+        album = bandcamp.album.info(api=api, album_id=album_id)
+
+        self.assertIsInstance(album, bandcamp.album.Album)
+        self.assertEqual(album.album_id, album_id)
 
 
 if __name__ == '__main__':

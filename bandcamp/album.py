@@ -7,7 +7,7 @@ from .commons import DownloadableStates, integer
 __version__ = 2
 __all__ = ['info']
 
-BASE_URL = 'http://api.bandcamp.com/api/album/2/info' % __version__
+BASE_URL = 'http://api.bandcamp.com/api/album/%d/info' % __version__
 
 
 def info(api, album_id):
