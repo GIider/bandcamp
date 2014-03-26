@@ -87,5 +87,30 @@ class TestTrack(unittest.TestCase):
         self.assertEqual(track.downloadable, bandcamp.track.DownloadableStates.PAID)
 
 
+class TestUrl(unittest.TestCase):
+    """Test the URL module"""
+
+    def test_band_url(self):
+        url = 'cults.bandcamp.com'
+        api = TestApi('test_band_url')
+
+        response = bandcamp.url.info(api=api, url=url)
+
+        self.assertEqual(response.band_id, 4214473200)
+        self.assertIsNone(response.album_id)
+        self.assertIsNone(response.track_id)
+
+
+    def test_band_track_url(self):
+        url = 'http://music.sufjan.com/track/enchanting-ghost'
+        api = TestApi('test_band_track_url')
+
+        response = bandcamp.url.info(api=api, url=url)
+
+        self.assertEqual(response.band_id, 203035041)
+        self.assertEqual(response.track_id, 2323108455)
+        self.assertIsNone(response.album_id)
+
+
 if __name__ == '__main__':
     unittest.main()
