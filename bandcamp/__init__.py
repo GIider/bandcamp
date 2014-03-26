@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """The bandcamp package - A wrapper around the bandcamp API
 
+https://bandcamp.com/developer
+
 Example code:
     >>> import bandcamp
     >>> api = bandcamp.Api(api_key='your-secret-api-key')
@@ -13,10 +15,12 @@ from urllib.parse import urlencode
 from urllib.request import urlopen
 
 from . import track
+from . import url
 
 
-__all__ = ['Api', 'track']
+__all__ = ['Api', 'track', 'url']
 
+# TODO: Reimplement the old caching mechanism
 
 class Api(object):
     def __init__(self, api_key):
@@ -27,6 +31,7 @@ class Api(object):
             parameters['key'] = self._api_key
             url += '?%s' % urlencode(parameters, safe=',')
 
+        # TODO: Remove later :-)
         print(url)
 
         f = urlopen(url)
