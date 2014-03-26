@@ -23,8 +23,10 @@ class RegtestApi(bandcamp.Api):
 
 
 class TestTrack(unittest.TestCase):
-    def test_single_track(self):
-        """Verify that a single track can be fetched"""
+    """Test the track module"""
+
+    def test_single_track_int(self):
+        """Verify that a single track can be fetched with its track id as a number"""
         track_id = 1269403107
 
         api = RegtestApi('test_single_track')
@@ -33,9 +35,20 @@ class TestTrack(unittest.TestCase):
         self.assertIsInstance(track, bandcamp.track.Track)
         self.assertEqual(track.track_id, track_id)
 
+    def test_single_track_str(self):
+        """Verify that a single track can be fetched with its track id as a string"""
+        track_id = '1269403107'
+
+        api = RegtestApi('test_single_track')
+        track = bandcamp.track.info(api=api, track_id=track_id)
+
+        self.assertIsInstance(track, bandcamp.track.Track)
+        self.assertEqual(str(track.track_id), track_id)
+
+
     def test_multiple_tracks(self):
         """Verify that multiple tracks can be fetched"""
-        track_ids = [3257270656, '1269403107']
+        track_ids = [3257270656, 1269403107]
 
         api = RegtestApi('test_multiple_tracks')
         tracks = bandcamp.track.info(api=api, track_id=track_ids)
@@ -43,10 +56,7 @@ class TestTrack(unittest.TestCase):
         self.assertEqual(len(tracks), 2)
 
         self.assertIsInstance(tracks[0], bandcamp.track.Track)
-        self.assertEqual(tracks[0].track_id, int(track_ids[1]))
-
         self.assertIsInstance(tracks[1], bandcamp.track.Track)
-        self.assertEqual(tracks[1].track_id, int(track_ids[0]))
 
 
 if __name__ == '__main__':
