@@ -94,7 +94,7 @@ class TestTrack(unittest.TestCase):
         self.assertIsInstance(tracks[3257270656], bandcamp.track.Track)
         self.assertIsInstance(tracks[1269403107], bandcamp.track.Track)
 
-    def test_numerical_propertys(self):
+    def test_numerical_properties(self):
         """Verify that the 3 id properties return numerical values"""
         track_id = 1269403107
 
@@ -186,6 +186,7 @@ class TestAlbum(unittest.TestCase):
         """Verify that the release_date returns a time_struct"""
         album_id = 2587417518
 
+        # tpwg stands for "This Place Will Grow" which is the album title ;)
         api = TestApi('test_album_tpwg')
         album = bandcamp.album.info(api=api, album_id=album_id)
 
@@ -194,6 +195,32 @@ class TestAlbum(unittest.TestCase):
     def test_tracks(self):
         """Verify that the tracks property works correctly"""
         self.skipTest('Not implemented yet')
+
+
+class TestBand(unittest.TestCase):
+    """Test the Band module"""
+
+    def test_single_band(self):
+        """Verify that a single band can be fetched"""
+        band_id = 3463798201
+
+        api = TestApi('test_single_band')
+        band = bandcamp.band.info(api=api, band_id=band_id)
+
+        self.assertIsInstance(band, bandcamp.band.Band)
+        self.assertEqual(band_id, band.band_id)
+
+    def test_multiple_bands(self):
+        """Verify that multiple bands can be fetched"""
+        band_ids = [3789714150, 4214473200]
+
+        api = TestApi('test_multiple_bands')
+        bands = bandcamp.band.info(api=api, band_id=band_ids)
+
+        self.assertEqual(2, len(bands))
+
+        self.assertIsInstance(bands[3789714150], bandcamp.band.Band)
+        self.assertIsInstance(bands[4214473200], bandcamp.band.Band)
 
 
 if __name__ == '__main__':

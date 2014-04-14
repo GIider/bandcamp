@@ -22,6 +22,7 @@ def info(api, album_id):
     if 'album_id' in response:
         return Album(album_body=response)
 
+    # TODO: What was I thinking here? Does the album module support batching?
     raise NotImplementedError()
 
 
@@ -58,7 +59,6 @@ class Album(object):
     @property
     def url(self):
         """the album’s URL."""
-        # TODO: Fix this bug myself :-)
         return self.album_body.get('url', None)
 
     @property

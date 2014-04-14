@@ -17,9 +17,10 @@ from urllib.request import urlopen
 from . import track
 from . import url
 from . import album
+from . import band
 
 
-__all__ = ['Api', 'track', 'url', 'album']
+__all__ = ['Api', 'track', 'url', 'album', 'band']
 
 # TODO: Reimplement the old caching mechanism
 
