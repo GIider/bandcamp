@@ -39,9 +39,6 @@ def search(api, name):
     There’s a limit of 12 names in a single request.
     """
     if not isinstance(name, str):
-        if len(name) > 12:
-            raise ValueError('You can only search for up to 12 names at a time')
-
         name = ','.join((str(_name) for _name in name))
 
     parameters = {'name': name}

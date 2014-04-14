@@ -51,10 +51,12 @@ class Api(object):
         f = urlopen(url)
         assert f.code == 200
 
-        content = f.read()
+        content = f.read().decode('utf-8')
 
-        content = content.decode('utf-8')
+        return self.process_json_string(content)
 
+    def process_json_string(self, content):
+        """Process a given json content and return a dictionary"""
         obj = json.loads(content)
 
         if 'error' in obj or 'error_message' in obj:

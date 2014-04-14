@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 import time
-import json
 import unittest
 import os
 
@@ -15,12 +14,14 @@ class TestApi(bandcamp.Api):
     """Mock Api object that reads from a file instead of the web"""
 
     def __init__(self, response_file_name, encoding='utf-8'):
-        file_path = os.path.join(JSON_DIR, response_file_name)
-        with open(file_path, encoding=encoding) as f:
-            self.canned_response = json.load(f)
+        self.file_path = os.path.join(JSON_DIR, response_file_name)
+        self.encoding = encoding
 
     def make_api_request(self, *args, **kwargs):
-        return self.canned_response
+        with open(self.file_path, encoding=self.encoding) as f:
+            content = f.read()
+
+        return super().process_json_string(content=content)
 
 
 class TestApiObject(unittest.TestCase):
@@ -275,7 +276,7 @@ class TestBand(unittest.TestCase):
         """Verify that we raise an error when you try to search for more than 12 names"""
         name = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13']
 
-        api = TestApi('test_search_multiple')  # Doesn't matter
+        api = TestApi('test_search_thirteen')
         with self.assertRaises(ValueError):
             bandcamp.band.search(api=api, name=name)
 
