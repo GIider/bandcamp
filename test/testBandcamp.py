@@ -222,6 +222,63 @@ class TestBand(unittest.TestCase):
         self.assertIsInstance(bands[3789714150], bandcamp.band.Band)
         self.assertIsInstance(bands[4214473200], bandcamp.band.Band)
 
+    def test_search_with_one_result(self):
+        """Verify that we can handle a search that returns a single band"""
+        name = 'Mumble'
+
+        api = TestApi('test_search_mumble')
+        band = bandcamp.band.search(api=api, name=name)
+
+        self.assertIsInstance(band, bandcamp.band.Band)
+        self.assertEqual(name, band.name)
+
+    def test_search_with_multiple_results(self):
+        """Verify that we can handle a search that returns multiple bands"""
+        name = 'lapfox'
+
+        api = TestApi('test_search_lapfox')
+        bands = bandcamp.band.search(api=api, name=name)
+
+        self.assertEqual(2, len(bands))
+
+        self.assertIsInstance(bands[842757654], bandcamp.band.Band)
+        self.assertIsInstance(bands[2142855304], bandcamp.band.Band)
+
+    def test_search_with_no_results(self):
+        """Verify that we can handle a search that returns no results"""
+        name = 'unittest'
+
+        api = TestApi('test_search_unittest')
+        bands = bandcamp.band.search(api=api, name=name)
+
+        self.assertEqual({}, bands)
+
+    def test_search_multiple(self):
+        """Verify that we can search for multiple names"""
+        name = ['lapfox', 'aviators']
+
+        api = TestApi('test_search_multiple')
+        bands = bandcamp.band.search(api=api, name=name)
+
+        self.assertEqual(8, len(bands))
+
+    def test_search_twelve(self):
+        """Verify that we can search for 12 names"""
+        name = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+
+        api = TestApi('test_search_twelve')
+        bands = bandcamp.band.search(api=api, name=name)
+
+        self.assertEqual(96, len(bands))
+
+    def test_search_more_than_twelve(self):
+        """Verify that we raise an error when you try to search for more than 12 names"""
+        name = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13']
+
+        api = TestApi('test_search_multiple')  # Doesn't matter
+        with self.assertRaises(ValueError):
+            bandcamp.band.search(api=api, name=name)
+
 
 if __name__ == '__main__':
     unittest.main()

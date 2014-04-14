@@ -7,7 +7,7 @@ from .commons import DownloadableStates, integer
 __version__ = 3
 __all__ = ['info']
 
-BASE_URL = 'http://api.bandcamp.com/api/track/%d/info' % __version__
+BASE_URL_INFO = 'http://api.bandcamp.com/api/track/%d/info' % __version__
 
 
 def info(api, track_id):
@@ -25,7 +25,7 @@ def info(api, track_id):
 
     parameters = {'track_id': track_id}
 
-    response = api.make_api_request(url=BASE_URL, parameters=parameters)
+    response = api.make_api_request(url=BASE_URL_INFO, parameters=parameters)
 
     if 'track_id' in response:
         return Track(track_body=response)

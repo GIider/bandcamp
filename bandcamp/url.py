@@ -5,7 +5,7 @@ from collections import namedtuple
 __version__ = 1
 __all__ = ['info']
 
-BASE_URL = 'http://api.bandcamp.com/api/url/%d/info' % __version__
+BASE_URL_INFO = 'http://api.bandcamp.com/api/url/%d/info' % __version__
 UrlInfoResponse = namedtuple('UrlInfoResponse', 'band_id album_id track_id')
 
 
@@ -18,7 +18,7 @@ def info(api, url):
     """
     parameters = {'url': url}
 
-    response = api.make_api_request(url=BASE_URL, parameters=parameters)
+    response = api.make_api_request(url=BASE_URL_INFO, parameters=parameters)
     for _id in ('track_id', 'band_id', 'album_id'):
         if _id not in response:
             response[_id] = None

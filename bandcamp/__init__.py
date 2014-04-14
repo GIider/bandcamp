@@ -23,6 +23,8 @@ from . import band
 __all__ = ['Api', 'track', 'url', 'album', 'band']
 
 # TODO: Reimplement the old caching mechanism
+# TODO: Check the docstrings and improve them as they are currently
+#       just copied from the bandcamp site ;)
 
 
 class Api(object):

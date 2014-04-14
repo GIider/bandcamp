@@ -1,0 +1,60 @@
+{
+  "results": [
+    {
+      "offsite_url": "http://www.SoundOfTheAviators.com/",
+      "band_id": 687693559,
+      "subdomain": "soundoftheaviators",
+      "name": "Aviators",
+      "url": "http://music.soundoftheaviators.com"
+    },
+    {
+      "offsite_url": null,
+      "band_id": 1233055757,
+      "subdomain": "aviators",
+      "name": "Aviators",
+      "url": "http://aviators.bandcamp.com"
+    },
+    {
+      "offsite_url": null,
+      "band_id": 1782030724,
+      "subdomain": "aviatorsmusic",
+      "name": "aviators",
+      "url": "http://aviatorsmusic.bandcamp.com"
+    },
+    {
+      "offsite_url": null,
+      "band_id": 1893604763,
+      "subdomain": "thesgking",
+      "name": "Aviators",
+      "url": "http://thesgking.bandcamp.com"
+    },
+    {
+      "offsite_url": "http://flavors.me/aviators",
+      "band_id": 3930707255,
+      "subdomain": "aviatorsremix",
+      "name": "Aviators",
+      "url": "http://aviatorsremix.bandcamp.com"
+    },
+    {
+      "offsite_url": null,
+      "band_id": 4114142149,
+      "subdomain": "aviatorslife",
+      "name": "Aviators",
+      "url": "http://aviatorslife.bandcamp.com"
+    },
+    {
+      "offsite_url": null,
+      "band_id": 842757654,
+      "subdomain": "rajjizephyrtrax",
+      "name": "LAPFOXTRAX",
+      "url": "http://rajjizephyrtrax.bandcamp.com"
+    },
+    {
+      "offsite_url": null,
+      "band_id": 2142855304,
+      "subdomain": "lapfoxtrax",
+      "name": "Lapfoxtrax",
+      "url": "http://lapfoxtrax.bandcamp.com"
+    }
+  ]
+}
