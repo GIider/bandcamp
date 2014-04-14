@@ -34,7 +34,7 @@ class TestApiObject(unittest.TestCase):
         parameters = {'url': 'cults.bandcamp.com'}
         encoded_url = 'http://api.bandcamp.com/api/url/1/info?url=cults.bandcamp.com'
 
-        self.assertEqual(api.get_encoded_url(url=url, parameters=parameters), encoded_url)
+        self.assertEqual(encoded_url, api.get_encoded_url(url=url, parameters=parameters))
 
 
     def test_url_encoding_allows_comma(self):
@@ -45,7 +45,7 @@ class TestApiObject(unittest.TestCase):
         parameters = {'track_id': '3257270656,3467313536'}
         encoded_url = 'http://api.bandcamp.com/api/track/3/info?track_id=3257270656,3467313536'
 
-        self.assertEqual(api.get_encoded_url(url=url, parameters=parameters), encoded_url)
+        self.assertEqual(encoded_url, api.get_encoded_url(url=url, parameters=parameters))
 
 
     def test_url_encoding_encodes_space(self):
@@ -56,7 +56,7 @@ class TestApiObject(unittest.TestCase):
         parameters = {'name': 'mountain man'}
         encoded_url = 'http://api.bandcamp.com/api/band/3/search?name=mountain+man'
 
-        self.assertEqual(api.get_encoded_url(url=url, parameters=parameters), encoded_url)
+        self.assertEqual(encoded_url, api.get_encoded_url(url=url, parameters=parameters))
 
 
 class TestTrack(unittest.TestCase):
@@ -70,7 +70,7 @@ class TestTrack(unittest.TestCase):
         track = bandcamp.track.info(api=api, track_id=track_id)
 
         self.assertIsInstance(track, bandcamp.track.Track)
-        self.assertEqual(track.track_id, track_id)
+        self.assertEqual(track_id, track.track_id)
 
     def test_single_track_str(self):
         """Verify that a single track can be fetched with its track id as a string"""
@@ -80,7 +80,7 @@ class TestTrack(unittest.TestCase):
         track = bandcamp.track.info(api=api, track_id=track_id)
 
         self.assertIsInstance(track, bandcamp.track.Track)
-        self.assertEqual(str(track.track_id), track_id)
+        self.assertEqual(track_id, str(track.track_id))
 
     def test_multiple_tracks(self):
         """Verify that multiple tracks can be fetched"""
@@ -89,7 +89,7 @@ class TestTrack(unittest.TestCase):
         api = TestApi('test_multiple_tracks')
         tracks = bandcamp.track.info(api=api, track_id=track_ids)
 
-        self.assertEqual(len(tracks), 2)
+        self.assertEqual(2, len(tracks))
 
         self.assertIsInstance(tracks[3257270656], bandcamp.track.Track)
         self.assertIsInstance(tracks[1269403107], bandcamp.track.Track)
@@ -121,11 +121,20 @@ class TestTrack(unittest.TestCase):
         api = TestApi('test_single_track')
         track = bandcamp.track.info(api=api, track_id=track_id)
 
-        self.assertEqual(track.downloadable, bandcamp.track.DownloadableStates.PAID)
+        self.assertEqual(bandcamp.track.DownloadableStates.PAID, track.downloadable)
 
     def test_release_date(self):
         """Verify that the release_date returns a time_struct"""
         self.skipTest('Not implemented yet')
+
+    def test_unicode(self):
+        """Verify that we can handle a unicode title"""
+        track_id = 2846277250
+
+        api = TestApi('test_unicode_track')
+        track = bandcamp.track.info(api=api, track_id=track_id)
+
+        self.assertEqual('\u266b \u2160\uff0f \u2764\u2764\u2764', track.title)
 
 
 class TestUrl(unittest.TestCase):
@@ -137,7 +146,7 @@ class TestUrl(unittest.TestCase):
 
         response = bandcamp.url.info(api=api, url=url)
 
-        self.assertEqual(response.band_id, 4214473200)
+        self.assertEqual(4214473200, response.band_id)
         self.assertIsNone(response.album_id)
         self.assertIsNone(response.track_id)
 
@@ -147,9 +156,17 @@ class TestUrl(unittest.TestCase):
 
         response = bandcamp.url.info(api=api, url=url)
 
-        self.assertEqual(response.band_id, 203035041)
-        self.assertEqual(response.track_id, 2323108455)
+        self.assertEqual(203035041, response.band_id)
+        self.assertEqual(2323108455, response.track_id)
         self.assertIsNone(response.album_id)
+
+    def test_album_url(self):
+        url = 'lapfoxtrax.com/album/--2'
+        api = TestApi('test_album_url')
+
+        response = bandcamp.url.info(api=api, url=url)
+        self.assertEqual(4180852708, response.band_id)
+        self.assertEqual(1163674320, response.album_id)
 
 
 class TestAlbum(unittest.TestCase):
@@ -163,7 +180,7 @@ class TestAlbum(unittest.TestCase):
         album = bandcamp.album.info(api=api, album_id=album_id)
 
         self.assertIsInstance(album, bandcamp.album.Album)
-        self.assertEqual(album.album_id, album_id)
+        self.assertEqual(album_id, album.album_id)
 
     def test_release_date(self):
         """Verify that the release_date returns a time_struct"""
@@ -173,6 +190,10 @@ class TestAlbum(unittest.TestCase):
         album = bandcamp.album.info(api=api, album_id=album_id)
 
         self.assertIsInstance(album.release_date, time.struct_time)
+
+    def test_tracks(self):
+        """Verify that the tracks property works correctly"""
+        self.skipTest('Not implemented yet')
 
 
 if __name__ == '__main__':

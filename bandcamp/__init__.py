@@ -23,6 +23,7 @@ __all__ = ['Api', 'track', 'url', 'album']
 
 # TODO: Reimplement the old caching mechanism
 
+
 class Api(object):
     def __init__(self, api_key):
         self._api_key = api_key
