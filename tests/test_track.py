@@ -76,3 +76,36 @@ class TestTrack(unittest.TestCase):
         track = bandcamp.track.info(api=api, track_id=track_id)
 
         self.assertEqual('\u266b \u2160\uff0f \u2764\u2764\u2764', track.title)
+
+    def test_url_property(self):
+        track_id = 2846277250
+
+        api = bandcamp.TestApi('test_unicode_track')
+        track = bandcamp.track.info(api=api, track_id=track_id)
+
+        self.assertEqual('/track/--2', track.url)
+
+    def test_about_property(self):
+        track_id = 1269403107
+
+        api = bandcamp.TestApi('test_single_track')
+        track = bandcamp.track.info(api=api, track_id=track_id)
+
+        self.assertEqual('Recorded live in Prague, Czech Republic at Palác Akropolis on May 5th, 2010', track.about)
+
+    def test_band_id_property(self):
+        track_id = 2846277250
+
+        api = bandcamp.TestApi('test_unicode_track')
+        track = bandcamp.track.info(api=api, track_id=track_id)
+
+        self.assertEqual(4180852708, track.band_id)
+
+    def test_track_id_property(self):
+        track_id = 2846277250
+
+        api = bandcamp.TestApi('test_unicode_track')
+        track = bandcamp.track.info(api=api, track_id=track_id)
+
+        self.assertEqual(2846277250, track.track_id)
+
