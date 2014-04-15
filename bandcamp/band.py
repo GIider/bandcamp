@@ -265,7 +265,7 @@ class DiscographyTrack(object):
     @property
     def downloadable(self):
         """DownloadableStates.FREE if the album is free, DownloadableStates.PAID if paid."""
-        return DownloadableStates(self.album_body.get('downloadable', None))
+        return DownloadableStates(self.track_body.get('downloadable', None))
 
     @property
     def url(self):
