@@ -10,6 +10,7 @@ Example code:
     >>> print(track.title)
     Creep (Live in Prague)
 """
+import os
 import json
 from urllib.parse import urlencode
 from urllib.request import urlopen
@@ -65,3 +66,21 @@ class Api(object):
             raise ValueError(obj['error_message'])
 
         return obj
+
+
+class TestApi(Api):
+    """Mock Api object that reads from a file instead of the web
+
+    Only to be used for the unittests
+    """
+    JSON_DIR = os.path.join(os.path.dirname(__file__), '..', 'tests', 'json')
+
+    def __init__(self, response_file_name, encoding='utf-8'):
+        self.file_path = os.path.join(self.JSON_DIR, response_file_name)
+        self.encoding = encoding
+
+    def make_api_request(self, *args, **kwargs):
+        with open(self.file_path, encoding=self.encoding) as f:
+            content = f.read()
+
+        return super().process_json_string(content=content)
