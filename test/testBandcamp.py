@@ -124,10 +124,6 @@ class TestTrack(unittest.TestCase):
 
         self.assertEqual(bandcamp.track.DownloadableStates.PAID, track.downloadable)
 
-    def test_release_date(self):
-        """Verify that the release_date returns a time_struct"""
-        self.skipTest('Not implemented yet')
-
     def test_unicode(self):
         """Verify that we can handle a unicode title"""
         track_id = 2846277250
@@ -195,7 +191,21 @@ class TestAlbum(unittest.TestCase):
 
     def test_tracks(self):
         """Verify that the tracks property works correctly"""
-        self.skipTest('Not implemented yet')
+        album_id = 2587417518
+
+        # tpwg stands for "This Place Will Grow" which is the album title ;)
+        api = TestApi('test_album_tpwg')
+        album = bandcamp.album.info(api=api, album_id=album_id)
+
+        self.assertEqual(6, len(album.tracks))
+        self.assertIsInstance(album.tracks[0], bandcamp.track.Track)
+
+        self.assertEqual(1, album.tracks[0].number)
+        self.assertEqual(2, album.tracks[1].number)
+        self.assertEqual(3, album.tracks[2].number)
+        self.assertEqual(4, album.tracks[3].number)
+        self.assertEqual(5, album.tracks[4].number)
+        self.assertEqual(6, album.tracks[5].number)
 
 
 class TestBand(unittest.TestCase):

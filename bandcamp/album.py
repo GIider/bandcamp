@@ -3,6 +3,7 @@
 import time
 
 from .commons import DownloadableStates, integer
+from .track import Track
 
 __version__ = 2
 __all__ = ['info']
@@ -19,11 +20,7 @@ def info(api, album_id):
 
     response = api.make_api_request(url=BASE_URL_INFO, parameters=parameters)
 
-    if 'album_id' in response:
-        return Album(album_body=response)
-
-    # TODO: What was I thinking here? Does the album module support batching?
-    raise NotImplementedError()
+    return Album(album_body=response)
 
 
 class Album(object):
@@ -63,7 +60,8 @@ class Album(object):
 
     @property
     def tracks(self):
-        raise NotImplementedError()
+        """array of tracks, the info for each track is the same as you get from the track/info function."""
+        return [Track(track_body=track_body) for track_body in self.album_body.get('tracks')]
 
     @property
     def about(self):

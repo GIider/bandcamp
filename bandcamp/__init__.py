@@ -43,19 +43,21 @@ class Api(object):
 
     def make_api_request(self, url, parameters=None):
         """Make a request to the Bandcamp API"""
-        url = self.get_encoded_url(url=url, parameters=parameters)
+        encoded_url = self.get_encoded_url(url=url, parameters=parameters)
 
         # TODO: Remove later :-)
-        print(url)
+        print(encoded_url)
 
-        f = urlopen(url)
-        assert f.code == 200
+        f = urlopen(encoded_url)
+        if f.code != 200:
+            raise ValueError('HTTP status %d returned when querying API' % f.code)
 
         content = f.read().decode('utf-8')
 
         return self.process_json_string(content)
 
-    def process_json_string(self, content):
+    @staticmethod
+    def process_json_string(content):
         """Process a given json content and return a dictionary"""
         obj = json.loads(content)
 
