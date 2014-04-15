@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """The Bandcamp Band module"""
+import time
 from collections import namedtuple
 
-from .commons import integer
+from .commons import integer, DownloadableStates
+
 
 __version__ = 3
 __all__ = ['info']
@@ -145,6 +147,87 @@ class Band(object):
         return self.band_body.get('offsite_url', None)
 
 
+class DiscographyAlbum(object):
+    def __init__(self, album_body):
+        self.album_body = album_body
+
+    @property
+    @integer
+    def album_id(self):
+        """the album’s numeric id."""
+        return self.album_body.get('album_id', None)
+
+    @property
+    def title(self):
+        """The album's title."""
+        return self.album_body.get('title', None)
+
+    @property
+    def release_date(self):
+        """the album’s release date.
+
+         Expressed as a time.struct_time instance
+         """
+        release_date = self.album_body.get('release_date', None)
+        if release_date is not None:
+            release_date = time.localtime(release_date)
+
+        return release_date
+
+    @property
+    def downloadable(self):
+        """DownloadableStates.FREE if the album is free, DownloadableStates.PAID if paid."""
+        downloadable = self.album_body.get('downloadable', None)
+        if downloadable is not None:
+            downloadable = DownloadableStates(downloadable)
+
+        return downloadable
+
+    @property
+    def url(self):
+        """the album’s URL."""
+        return self.album_body.get('url', None)
+
+    @property
+    def about(self):
+        """the album’s “about” text, if any."""
+        # TODO: Remove
+        return self.album_body.get('about', None)
+
+    @property
+    def credits(self):
+        """the album’s credits, if any."""
+        # TODO: Remove
+        return self.album_body.get('credits', None)
+
+    @property
+    def small_art_url(self):
+        """URL to the album’s cover art, 100×100, if any."""
+        return self.album_body.get('small_art_url', None)
+
+    @property
+    def large_art_url(self):
+        """350×350."""
+        return self.album_body.get('large_art_url', None)
+
+    @property
+    def artist(self):
+        """the album’s artist, if different than the band’s name."""
+        return self.album_body.get('artist', None)
+
+    @property
+    @integer
+    def album_id(self):
+        """the album’s numeric id."""
+        return self.album_body.get('album_id', None)
+
+    @property
+    @integer
+    def band_id(self):
+        """the band’s numeric id."""
+        return self.album_body.get('band_id', None)
+
+
 class DiscographyTrack(object):
     def __init__(self, track_body):
         self.track_body = track_body
@@ -155,13 +238,104 @@ class DiscographyTrack(object):
         """the track’s numeric id."""
         return self.track_body.get('track_id', None)
 
+    @property
+    def title(self):
+        """The track's title."""
+        return self.track_body.get('title', None)
 
-class DiscographyAlbum(object):
-    def __init__(self, album_body):
-        self.album_body = album_body
+    @property
+    @integer
+    def number(self):
+        """the track number on the album."""
+        return self.track_body.get('number', None)
+
+    @property
+    def duration(self):
+        """the track’s duration, in seconds (float)."""
+        return self.track_body.get('duration', None)
+
+    @property
+    def release_date(self):
+        """the track’s release date if it’s different than the album’s release date.
+
+         Expressed as a time.struct_time instance
+         """
+        release_date = self.track_body.get('release_date', None)
+        if release_date is not None:
+            release_date = time.localtime(release_date)
+
+        return release_date
+
+    @property
+    def downloadable(self):
+        """DownloadableStates.FREE if the track is free, DownloadableStates.PAID if paid."""
+        downloadable = self.track_body.get('downloadable', None)
+        if downloadable is not None:
+            downloadable = DownloadableStates(downloadable)
+
+        return downloadable
+
+    @property
+    def url(self):
+        """The relative URL of the track.
+
+        Note that this is relative, as opposed to the album info URL that's absolute.
+        This is a bug and will be fixed in future versions
+        """
+        # TODO: Fix this bug myself :-)
+        return self.track_body.get('url', None)
+
+    @property
+    def streaming_url(self):
+        """The URL to the track's mp3 - 128 audio."""
+        return self.track_body.get('streaming_url', None)
+
+    @property
+    def lyrics(self):
+        """The track's lyrics, if any."""
+        return self.track_body.get('lyrics', None)
+
+    @property
+    def about(self):
+        """the track’s “about” text, if any."""
+        # TODO: Remove
+        return self.track_body.get('about', None)
+
+    @property
+    def credits(self):
+        """the track’s credits, if any."""
+        # TODO: Remove
+        return self.track_body.get('credits', None)
+
+    @property
+    def small_art_url(self):
+        """URL to the track’s art, 100×100, only present if it’s different than the album’s cover art."""
+        return self.track_body.get('small_art_url', None)
+
+    @property
+    def large_art_url(self):
+        """350×350."""
+        return self.track_body.get('large_art_url', None)
+
+    @property
+    def artist(self):
+        """the track’s artist, if different than the album’s artist."""
+        return self.track_body.get('artist', None)
+
+    @property
+    @integer
+    def track_id(self):
+        """the track’s numeric id."""
+        return self.track_body.get('track_id', None)
 
     @property
     @integer
     def album_id(self):
         """the album’s numeric id."""
-        return self.album_body.get('album_id', None)
+        return self.track_body.get('album_id', None)
+
+    @property
+    @integer
+    def band_id(self):
+        """the band’s numeric id."""
+        return self.track_body.get('band_id', None)
