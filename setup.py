@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-from distutils.core import setup
+from setuptools import setup
 
 setup(name='bandcamp',
       description='A wrapper around the API of bandcamp.com',
