@@ -158,6 +158,12 @@ class DiscographyAlbum(object):
         return self.album_body.get('album_id', None)
 
     @property
+    @integer
+    def band_id(self):
+        """the band’s numeric id."""
+        return self.album_body.get('band_id', None)
+
+    @property
     def title(self):
         """The album's title."""
         return self.album_body.get('title', None)
@@ -185,18 +191,6 @@ class DiscographyAlbum(object):
         return self.album_body.get('url', None)
 
     @property
-    def about(self):
-        """the album’s “about” text, if any."""
-        # TODO: Remove
-        return self.album_body.get('about', None)
-
-    @property
-    def credits(self):
-        """the album’s credits, if any."""
-        # TODO: Remove
-        return self.album_body.get('credits', None)
-
-    @property
     def small_art_url(self):
         """URL to the album’s cover art, 100×100, if any."""
         return self.album_body.get('small_art_url', None)
@@ -216,12 +210,6 @@ class DiscographyAlbum(object):
     def album_id(self):
         """the album’s numeric id."""
         return self.album_body.get('album_id', None)
-
-    @property
-    @integer
-    def band_id(self):
-        """the band’s numeric id."""
-        return self.album_body.get('band_id', None)
 
 
 class DiscographyTrack(object):

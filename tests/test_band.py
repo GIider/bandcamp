@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
+import time
 
 import bandcamp
 
@@ -134,3 +135,136 @@ class TestBand(unittest.TestCase):
 
         self.assertEqual('http://www.amandapalmer.net', band.offsite_url)
 
+
+class TestDiscographyAlbum(unittest.TestCase):
+    def test_release_date(self):
+        """Verify that the release_date returns a time_struct"""
+        band_id = 203035041
+
+        api = bandcamp.TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        album = discography.albums[4246425639]
+
+        self.assertIsInstance(album.release_date, time.struct_time)
+
+    def test_tracks(self):
+        """Verify that the tracks property works correctly"""
+        band_id = 203035041
+
+        api = bandcamp.TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        album = discography.albums[4246425639]
+
+        self.assertFalse(hasattr(album, 'tracks'))
+
+    def test_title_property(self):
+        band_id = 203035041
+
+        api = bandcamp.TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        album = discography.albums[4246425639]
+
+        self.assertEqual('The Age of Adz', album.title)
+
+    def test_downloadable_property(self):
+        band_id = 203035041
+
+        api = bandcamp.TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        album = discography.albums[4246425639]
+
+        self.assertEqual(bandcamp.commons.DownloadableStates.PAID, album.downloadable)
+
+    def test_downloadable_property_not_set(self):
+        band_id = 203035041
+
+        api = bandcamp.TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        album = discography.albums[4246425639]
+
+        self.assertEqual(bandcamp.commons.DownloadableStates.PAID, album.downloadable)
+
+    def test_url_property(self):
+        band_id = 203035041
+
+        api = bandcamp.TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        album = discography.albums[4246425639]
+
+        self.assertEqual('http://music.sufjan.com/album/the-age-of-adz?pk=564', album.url)
+
+    def test_about_property(self):
+        band_id = 203035041
+
+        api = bandcamp.TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        album = discography.albums[4246425639]
+
+        self.assertFalse(hasattr(album, 'about'))
+
+    def test_credits_property(self):
+        band_id = 203035041
+
+        api = bandcamp.TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        album = discography.albums[4246425639]
+
+        self.assertFalse(hasattr(album, 'credits'))
+
+    def test_small_art_url_property(self):
+        band_id = 203035041
+
+        api = bandcamp.TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        album = discography.albums[4246425639]
+
+        self.assertEqual('http://f0.bcbits.com/img/a0897080833_3.jpg', album.small_art_url)
+
+    def test_large_art_url_property(self):
+        band_id = 203035041
+
+        api = bandcamp.TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        album = discography.albums[4246425639]
+
+        self.assertEqual('http://f0.bcbits.com/img/a0897080833_2.jpg', album.large_art_url)
+
+    def test_artist_property(self):
+        band_id = 203035041
+
+        api = bandcamp.TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        album = discography.albums[4246425639]
+
+        self.assertEqual('Sufjan Stevens', album.artist)
+
+    def test_band_id_property(self):
+        band_id = 203035041
+
+        api = bandcamp.TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        album = discography.albums[4246425639]
+
+        self.assertEqual(203035041, album.band_id)
+
+    def test_album_id_property(self):
+        band_id = 203035041
+
+        api = bandcamp.TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        album = discography.albums[4246425639]
+
+        self.assertEqual(4246425639, album.album_id)

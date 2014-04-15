@@ -126,7 +126,6 @@ class TestAlbum(unittest.TestCase):
 
         self.assertEqual('Renard', album.artist)
 
-
     def test_band_id_property(self):
         album_id = 2587417518
 
