@@ -5,9 +5,11 @@ import functools
 __all__ = ['DownloadableStates', 'integer']
 
 
-class DownloadableStates(enum.IntEnum):
+class DownloadableStates(enum.Enum):
     FREE = 1
     PAID = 2
+
+    NOT_FOR_SALE = None
 
 
 def integer(func):

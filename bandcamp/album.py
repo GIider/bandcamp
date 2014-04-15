@@ -47,11 +47,7 @@ class Album(object):
     @property
     def downloadable(self):
         """DownloadableStates.FREE if the album is free, DownloadableStates.PAID if paid."""
-        downloadable = self.album_body.get('downloadable', None)
-        if downloadable is not None:
-            downloadable = DownloadableStates(downloadable)
-
-        return downloadable
+        return DownloadableStates(self.album_body.get('downloadable', None))
 
     @property
     def url(self):

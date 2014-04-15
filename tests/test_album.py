@@ -62,7 +62,7 @@ class TestAlbum(unittest.TestCase):
         api = bandcamp.TestApi('test_album_tpwg')
         album = bandcamp.album.info(api=api, album_id=album_id)
 
-        self.assertEqual('Regtest', album.downloadable)
+        self.assertEqual(bandcamp.commons.DownloadableStates.PAID, album.downloadable)
 
     def test_downloadable_property_not_set(self):
         album_id = 2587417518
@@ -72,7 +72,7 @@ class TestAlbum(unittest.TestCase):
         api = bandcamp.TestApi('test_album')
         album = bandcamp.album.info(api=api, album_id=album_id)
 
-        self.assertEqual(bandcamp.DownloadableStates.PAID, album.downloadable)
+        self.assertEqual(bandcamp.commons.DownloadableStates.NOT_FOR_SALE, album.downloadable)
 
     def test_url_property(self):
         album_id = 927252583
