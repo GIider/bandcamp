@@ -1,0 +1,124 @@
+{
+  "discography": [
+    {
+      "small_art_url": "http://f0.bcbits.com/img/a2329702605_3.jpg",
+      "large_art_url": "http://f0.bcbits.com/img/a2329702605_2.jpg",
+      "art_id": 2329702605,
+      "artist": "Sufjan Stevens",
+      "band_id": 203035041,
+      "release_date": 1282262400,
+      "downloadable": 2,
+      "url": "http://music.sufjan.com/album/all-delighted-people-ep?pk=564",
+      "album_id": 670192006,
+      "title": "All Delighted People EP"
+    },
+    {
+      "small_art_url": "http://f0.bcbits.com/img/a1535970238_3.jpg",
+      "large_art_url": "http://f0.bcbits.com/img/a1535970238_2.jpg",
+      "art_id": 1535970238,
+      "artist": "Sufjan Stevens",
+      "band_id": 203035041,
+      "release_date": 1120521600,
+      "downloadable": 2,
+      "url": "http://music.sufjan.com/album/illinois?pk=564",
+      "album_id": 781775666,
+      "title": "Illinois"
+    },
+    {
+      "small_art_url": "http://f0.bcbits.com/img/a2602881106_3.jpg",
+      "large_art_url": "http://f0.bcbits.com/img/a2602881106_2.jpg",
+      "art_id": 2602881106,
+      "artist": "Sufjan Stevens",
+      "band_id": 203035041,
+      "release_date": 1164067200,
+      "downloadable": 2,
+      "url": "http://music.sufjan.com/album/songs-for-christmas?pk=564",
+      "album_id": 798104856,
+      "title": "Songs for Christmas"
+    },
+    {
+      "small_art_url": "http://f0.bcbits.com/img/a4063131969_3.jpg",
+      "large_art_url": "http://f0.bcbits.com/img/a4063131969_2.jpg",
+      "art_id": 4063131969,
+      "artist": "Sufjan Stevens",
+      "band_id": 203035041,
+      "release_date": 1090281600,
+      "downloadable": 2,
+      "url": "http://music.sufjan.com/album/a-sun-came?pk=564",
+      "album_id": 832878843,
+      "title": "A Sun Came"
+    },
+    {
+      "small_art_url": "http://f0.bcbits.com/img/a1119032136_3.jpg",
+      "large_art_url": "http://f0.bcbits.com/img/a1119032136_2.jpg",
+      "art_id": 1119032136,
+      "artist": "Sufjan Stevens",
+      "band_id": 203035041,
+      "release_date": 1152576000,
+      "downloadable": 2,
+      "url": "http://music.sufjan.com/album/the-avalanche?pk=564",
+      "album_id": 2566673686,
+      "title": "The Avalanche"
+    },
+    {
+      "small_art_url": "http://f0.bcbits.com/img/a1642189911_3.jpg",
+      "large_art_url": "http://f0.bcbits.com/img/a1642189911_2.jpg",
+      "art_id": 1642189911,
+      "artist": "Sufjan Stevens",
+      "band_id": 203035041,
+      "release_date": 1255996800,
+      "downloadable": 2,
+      "url": "http://music.sufjan.com/album/the-bqe?pk=564",
+      "album_id": 2716113933,
+      "title": "The BQE"
+    },
+    {
+      "small_art_url": "http://f0.bcbits.com/img/a2687561644_3.jpg",
+      "large_art_url": "http://f0.bcbits.com/img/a2687561644_2.jpg",
+      "art_id": 2687561644,
+      "artist": "Sufjan Stevens",
+      "band_id": 203035041,
+      "release_date": 1352764800,
+      "downloadable": 2,
+      "url": "http://music.sufjan.com/album/silver-gold?pk=564",
+      "album_id": 3123296626,
+      "title": "Silver & Gold"
+    },
+    {
+      "small_art_url": "http://f0.bcbits.com/img/a3087694239_3.jpg",
+      "large_art_url": "http://f0.bcbits.com/img/a3087694239_2.jpg",
+      "art_id": 3087694239,
+      "artist": "Sufjan Stevens",
+      "band_id": 203035041,
+      "release_date": 1057017600,
+      "downloadable": 2,
+      "url": "http://music.sufjan.com/album/michigan?pk=564",
+      "album_id": 3978284670,
+      "title": "Michigan"
+    },
+    {
+      "small_art_url": "http://f0.bcbits.com/img/a3106192672_3.jpg",
+      "large_art_url": "http://f0.bcbits.com/img/a3106192672_2.jpg",
+      "art_id": 3106192672,
+      "artist": "Sufjan Stevens",
+      "band_id": 203035041,
+      "release_date": 1018915200,
+      "downloadable": 2,
+      "url": "http://music.sufjan.com/album/enjoy-your-rabbit?pk=564",
+      "album_id": 4180322227,
+      "title": "Enjoy Your Rabbit"
+    },
+    {
+      "small_art_url": "http://f0.bcbits.com/img/a0897080833_3.jpg",
+      "large_art_url": "http://f0.bcbits.com/img/a0897080833_2.jpg",
+      "art_id": 897080833,
+      "artist": "Sufjan Stevens",
+      "band_id": 203035041,
+      "release_date": 1286841600,
+      "downloadable": 2,
+      "url": "http://music.sufjan.com/album/the-age-of-adz?pk=564",
+      "album_id": 4246425639,
+      "title": "The Age of Adz"
+    }
+  ]
+}

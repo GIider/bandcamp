@@ -280,6 +280,30 @@ class TestBand(unittest.TestCase):
         with self.assertRaises(ValueError):
             bandcamp.band.search(api=api, name=name)
 
+    def test_single_band_discography(self):
+        """Verify that we can look up the discography of a single band"""
+        band_id = 203035041
+
+        api = TestApi('test_single_discography')
+        discography = bandcamp.band.discography(api=api, band_id=band_id)
+
+        self.assertIsInstance(discography, bandcamp.band.Discography)
+        self.assertEqual(10, len(discography.albums))
+        self.assertEqual(0, len(discography.tracks))
+
+        self.assertIsInstance(discography.albums[4246425639], bandcamp.band.DiscographyAlbum)
+
+    def test_multiple_band_discographies(self):
+        """Verify that we can look up the discography of multiple bands"""
+        band_id = [3463798201, 203035041]
+
+        api = TestApi('test_multiple_discographies')
+        discographies = bandcamp.band.discography(api=api, band_id=band_id)
+
+        self.assertEqual(2, len(discographies))
+        self.assertIsInstance(discographies[3463798201], bandcamp.band.Discography)
+        self.assertIsInstance(discographies[203035041], bandcamp.band.Discography)
+
 
 if __name__ == '__main__':
     unittest.main()
