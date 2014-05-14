@@ -4,6 +4,8 @@ Unofficial Python Bandcamp API Wrapper
 
 *It is currently in development, as I majorly overhaul the whole package*
 
+[![Build Status](https://travis-ci.org/GIider/bandcamp.svg?branch=master)](https://travis-ci.org/GIider/bandcamp)
+
 Disclaimer
 ==========
 No warranty, express or implied. This module is not officially endorsed or certified by Bandcamp, Inc..
