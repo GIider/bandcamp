@@ -10,8 +10,7 @@ No warranty, express or implied. This module is not officially endorsed or certi
 
 The term 'Bandcamp' is a trademark of Bandcamp, Inc.
 
-What do we have here?
-=====================
+### What do we have here?
 A lightweight, easy to use wrapper around the official Bandcamp API.
 
 Requirements
