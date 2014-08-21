@@ -6,6 +6,7 @@ Unofficial Python Bandcamp API Wrapper
 
 [![Build Status](https://travis-ci.org/GIider/bandcamp.svg?branch=master)](https://travis-ci.org/GIider/bandcamp)
 [![Coverage Status](https://img.shields.io/coveralls/GIider/bandcamp.svg)](https://coveralls.io/r/GIider/bandcamp)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GIider/bandcamp/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/GIider/bandcamp/?branch=master)
 
 Disclaimer
 ==========
