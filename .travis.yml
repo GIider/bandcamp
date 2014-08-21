@@ -4,6 +4,6 @@ python:
 install:
   - pip install coveralls
 script:
-    nosetests --with-coverage --cover-package=steam_market
+    nosetests --with-coverage --cover-package=bandcamp
 after_success:
   coveralls
