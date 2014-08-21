@@ -205,22 +205,10 @@ class DiscographyAlbum(object):
         """the album’s artist, if different than the band’s name."""
         return self.album_body.get('artist', None)
 
-    @property
-    @integer
-    def album_id(self):
-        """the album’s numeric id."""
-        return self.album_body.get('album_id', None)
-
 
 class DiscographyTrack(object):
     def __init__(self, track_body):
         self.track_body = track_body
-
-    @property
-    @integer
-    def track_id(self):
-        """the track’s numeric id."""
-        return self.track_body.get('track_id', None)
 
     @property
     def title(self):
